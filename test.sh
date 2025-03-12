@@ -1,3 +1,21 @@
+while getopts n:o:p: options; do
+	case ${options} in
+		n) variable1=${OPTARG};;
+		o) variable2=${OPTARG};;
+		p) variable3=${OPTARG};;
+		*) echo "please provide valid inputs"; exit;;
+	esac
+done
+if [[ -n $variable1 ]]; then
+	echo "$variable1 exists"
+fi
+echo $variable1 $variable2 $variable3
+if [[ -z $variable1 ]] || [[ -z $variable2 ]] || [[ -z $variable3 ]]; then
+	exit 1
+fi
+echo "$@"
+echo "$#"
+read sample
 a=2
 b=2
 if [[ $a -lt $b ]]; then
@@ -25,6 +43,7 @@ done
 echo ${arra[10]} # to fetch value at particular index
 echo ${!arra[@]} # to check the keys of array
 echo ${#arra[@]} # to check the length of array
+echo "a before $a"
 ((a++))
 echo "printing a after increment $a"
 b=$((b+1))
@@ -39,7 +58,7 @@ fi
 file=test.py
 while read -r line;
 do
-	echo $line
+	echo "$line"
 	echo "print length of line ${#line}"
 	echo "replacing print with echo ${line//print/echo}"
 done < $file
